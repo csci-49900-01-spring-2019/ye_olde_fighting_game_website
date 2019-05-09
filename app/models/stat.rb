@@ -7,7 +7,7 @@ class Stat < ApplicationRecord
     until done
       begin
         #puts 'https://arcane-forest-85239.herokuapp.com/api/v1/users/' + num.to_s
-        r = RestClient.get('https://arcane-forest-85239.herokuapp.com/api/v1/users/' + num.to_s)
+        r = RestClient.get('https://arcane-forest-85239.herokuapp.com/api/v1/users/' + num.to_s), {:Authorization => params[:session][:auth_token]}
       rescue RestClient::NotFound => e
         done = true
       else
