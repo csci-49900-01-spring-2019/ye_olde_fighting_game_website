@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
       parsed = JSON.parse(resp.body)
       puts parsed["auth_token"]
       params[:session][:auth_token] = parsed["auth_token"]
+      session[:auth_token] = parsed["auth_token"]
       response = RestClient.get 'https://arcane-forest-85239.herokuapp.com', {:Authorization => params[:session][:auth_token]}
       parsed = JSON.parse(response.body)
       user_data = parsed[1]

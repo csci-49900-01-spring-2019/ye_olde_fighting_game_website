@@ -20,29 +20,7 @@ class StatsController < ApplicationController
   end
 
   def new
-    #require 'json'
-    #require 'rest-client'
-    #puts 'https://arcane-forest-85239.herokuapp.com/api/v1/users/' + params[:id]
-    #r = RestClient.get('https://arcane-forest-85239.herokuapp.com/api/v1/users/' + params[:id])
-    #puts r.body
-    #parsed = JSON.parse(r.body)
-    #puts parsed["username"]
-    #puts parsed["avg_rank"]
-    #puts parsed["kill_count"]
-    #puts parsed["games_played"]
-    #s = Stat.new
-    #s.username = parsed["username"]
-    #s.avg_rank = parsed["avg_rank"]
-    #s.kill_count = parsed["kill_count"]
-    #s.games_played = parsed["games_played"]
-    #s.save
-    #require 'rest-client'
-    #r = RestClient.get('https://arcane-forest-85239.herokuapp.com/api/v1/users/1')
-    #puts response.body
-    #@stat = response.body
-    #@stat.save
-    #redirect_to @stat
-    #@stat = Stat.new
+
   end
 
   def create
@@ -63,9 +41,35 @@ class StatsController < ApplicationController
     redirect_to stats_path
   end
 
+  #def refresh
+  #  Stat.destroy_all
+  #  Stat.import
+  #  redirect_to(:action => 'index')
+  #end
+
   def refresh
     Stat.destroy_all
-    Stat.import
+    require 'json'
+    require 'rest-client'
+    puts session
+    puts "hello"
+    puts session[:auth_token]
+    puts "bye"
+    response = RestClient.get 'https://arcane-forest-85239.herokuapp.com', {:Authorization => session[:auth_token]}
+    parsed = JSON.parse(response.body)
+    user_data = parsed[0]
+    for i in 0..parsed.size-1
+      puts parsed[i]["username"]
+      puts parsed[i]["avg_rank"]
+      puts parsed[i]["kill_count"]
+      puts parsed[i]["games_played"]
+      s = Stat.new
+      s.username = parsed[i]["username"]
+      s.avg_rank = parsed[i]["avg_rank"]
+      s.kill_count = parsed[i]["kill_count"]
+      s.games_played = parsed[i]["games_played"]
+      s.save
+    end
     redirect_to(:action => 'index')
   end
 

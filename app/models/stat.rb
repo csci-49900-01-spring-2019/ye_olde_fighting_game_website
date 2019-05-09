@@ -2,31 +2,20 @@ class Stat < ApplicationRecord
   def self.import
     require 'json'
     require 'rest-client'
-    num = 1
-    done = false
-    until done
-      begin
-        #puts 'https://arcane-forest-85239.herokuapp.com/api/v1/users/' + num.to_s
-        r = RestClient.get('https://arcane-forest-85239.herokuapp.com/api/v1/users/' + num.to_s), {:Authorization => params[:session][:auth_token]}
-      rescue RestClient::NotFound => e
-        done = true
-      else
-        puts r.body
-        parsed = JSON.parse(r.body)
-        puts parsed["username"]
-        puts parsed["avg_rank"]
-        puts parsed["kill_count"]
-        puts parsed["games_played"]
-        s = Stat.new
-        s.username = parsed["username"]
-        s.avg_rank = parsed["avg_rank"]
-        s.kill_count = parsed["kill_count"]
-        s.games_played = parsed["games_played"]
-        num = num+1
-        unless s.save
-          done = true
-        end
-      end
+    response = RestClient.get 'https://arcane-forest-85239.herokuapp.com', {:Authorization => session[:current_user_id][:auth_token]}
+    parsed = JSON.parse(response.body)
+    user_data = parsed[0]
+    for i in 0..parsed.size-1
+      puts parsed[i]["username"]
+      puts parsed[i]["avg_rank"]
+      puts parsed[i]["kill_count"]
+      puts parsed[i]["games_played"]
+      s = Stat.new
+      s.username = parsed[i]["username"]
+      s.avg_rank = parsed[i]["avg_rank"]
+      s.kill_count = parsed[i]["kill_count"]
+      s.games_played = parsed[i]["games_played"]
+      s.save
     end
   end
 
