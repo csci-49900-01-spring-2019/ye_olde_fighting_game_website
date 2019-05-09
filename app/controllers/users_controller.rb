@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  require 'twilio-ruby'
+  #require 'twilio-ruby'
   #ATTRIBUTE_WHITELIST = [
   #  :first_name,
   #  :last_name,
