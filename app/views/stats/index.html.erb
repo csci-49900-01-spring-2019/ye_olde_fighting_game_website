@@ -1,0 +1,23 @@
+<h1>Player Stats</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Rank</th>
+    <th>Kill Count</th>
+    <th>Games Played</th>
+  </tr>
+
+  <% @stats.each do |stat| %>
+    <tr>
+      <td><%= stat.username %></td>
+      <td><%= stat.avg_rank %></td>
+      <td><%= stat.kill_count %></td>
+      <td><%= stat.games_played %></td>
+      <td><%= link_to 'Show', stat_path(stat) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Refresh", controller: "stats", action: "refresh" %>
+<%= link_to "Back to main page", root_path %>

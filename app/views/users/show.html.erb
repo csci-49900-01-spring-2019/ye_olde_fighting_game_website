@@ -1,0 +1,21 @@
+<p>
+  <strong>Name:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @user.avg_rank %>
+</p>
+
+<p>
+  <strong>Kill Count:</strong>
+  <%= @user.kill_count %>
+</p>
+
+<p>
+  <strong>Games Played:</strong>
+  <%= @user.games_played %>
+</p>
+
+  <%= link_to "Back to main page", root_path %>

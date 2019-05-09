@@ -1,0 +1,21 @@
+<p>
+  <strong>Name:</strong>
+  <%= @stat.username %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @stat.avg_rank %>
+</p>
+
+<p>
+  <strong>Kill Count:</strong>
+  <%= @stat.kill_count %>
+</p>
+
+<p>
+  <strong>Games Played:</strong>
+  <%= @stat.games_played %>
+</p>
+
+<%= link_to 'Back', stats_path %>

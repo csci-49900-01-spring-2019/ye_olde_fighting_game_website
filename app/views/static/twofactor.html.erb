@@ -1,0 +1,17 @@
+
+<h1>Enter Authentication Code</h1>
+
+<%= form_with model: @static, local: true do |form| %>
+
+  <p>
+    <%= form.label :code %><br>
+    <%= form.text_field :verification_code %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+
+<% end %>
+
+<%= link_to "Back to main page", root_path %>

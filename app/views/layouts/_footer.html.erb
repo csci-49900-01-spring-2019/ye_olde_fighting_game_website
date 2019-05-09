@@ -1,0 +1,15 @@
+<footer class="footer">
+  <small>
+    A fighting game blast to the past.
+  </small>
+  <nav>
+    <ul>
+      <li><%= link_to "Instructions", instructions_path %></li>
+      <% if logged_in? %>
+      <% else %>
+      <li><%= link_to "Log In", login_path %></li>
+      <li><%= link_to "Sign Up", register_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+</footer>
