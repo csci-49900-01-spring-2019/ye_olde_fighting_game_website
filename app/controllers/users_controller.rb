@@ -10,14 +10,25 @@ class UsersController < ApplicationController
   #]
 
   def index
-    #require 'rest-client'
-    #response = RestClient.get 'https://arcane-forest-85239.herokuapp.com'
-    #response = RestClient.get 'https://arcane-forest-85239.herokuapp.com', {accept: :json}
-    #puts "hello"
-    #puts response.body
-    #puts "goodbye"
+    User.destroy_all
+    require 'json'
+    require 'rest-client'
+    response = RestClient.get 'https://arcane-forest-85239.herokuapp.com', {:Authorization => session[:auth_token]}
+    parsed = JSON.parse(response.body)
+    user_data = parsed[0]
+    for i in 0..parsed.size-1
+      puts parsed[i]["username"]
+      puts parsed[i]["avg_rank"]
+      puts parsed[i]["kill_count"]
+      puts parsed[i]["games_played"]
+      s = User.new
+      s.username = parsed[i]["username"]
+      s.avg_rank = parsed[i]["avg_rank"]
+      s.kill_count = parsed[i]["kill_count"]
+      s.games_played = parsed[i]["games_played"]
+      s.save
+    end
     @users = User.all
-    #response.message, response.headers.inspect
   end
 
   def show
@@ -34,6 +45,14 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
     end
   end
+
+  def destroy
+    @users = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path
+  end
+
+
   #    require 'rest-client'
   #    begin
   #      resp = RestClient.post 'https://arcane-forest-85239.herokuapp.com/auth/login', {'username' => params[:session][:username],'password' => params[:session][:password],'password_confirmation' => params[:session][:password]}.to_json, {content_type: :json, accept: :json}

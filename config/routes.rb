@@ -2,13 +2,14 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get 'welcome/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :stats do
-    collection do
-      get 'refresh'
-    end
-  end
+  #resources :stats do
+  #  collection do
+  #    get 'refresh'
+  #  end
+  #end
   resources :users
   resources :static
+  get 'stats', to: "users#index", as: "stats"
   get 'instructions', to: "static#instructions", as: "instructions"
   get 'twofactor', to: "static#twofactor", as: "twofactor"
   get 'registration', to: "registration#register", as: "registration"

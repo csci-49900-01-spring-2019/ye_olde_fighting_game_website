@@ -1,13 +1,6 @@
 class StatsController < ApplicationController
   def index
-    #require 'rest-client'
-    #response = RestClient.get 'https://arcane-forest-85239.herokuapp.com'
-    #response = RestClient.get 'https://arcane-forest-85239.herokuapp.com', {accept: :json}
-    #puts "hello"
-    #puts response.body
-    #puts "goodbye"
     @stats = Stat.all
-    #response.message, response.headers.inspect
   end
 
   def show
