@@ -10,25 +10,27 @@ class UsersController < ApplicationController
   #]
 
   def index
-    User.destroy_all
-    require 'json'
-    require 'rest-client'
-    response = RestClient.get 'https://arcane-forest-85239.herokuapp.com', {:Authorization => session[:auth_token]}
-    parsed = JSON.parse(response.body)
-    user_data = parsed[0]
-    for i in 0..parsed.size-1
-      puts parsed[i]["username"]
-      puts parsed[i]["avg_rank"]
-      puts parsed[i]["kill_count"]
-      puts parsed[i]["games_played"]
-      s = User.new
-      s.username = parsed[i]["username"]
-      s.avg_rank = parsed[i]["avg_rank"]
-      s.kill_count = parsed[i]["kill_count"]
-      s.games_played = parsed[i]["games_played"]
-      s.save
+    if (logged_in?)
+      User.destroy_all
+      require 'json'
+      require 'rest-client'
+      response = RestClient.get 'https://arcane-forest-85239.herokuapp.com', {:Authorization => session[:auth_token]}
+      parsed = JSON.parse(response.body)
+      user_data = parsed[0]
+      for i in 0..parsed.size-1
+        puts parsed[i]["username"]
+        puts parsed[i]["avg_rank"]
+        puts parsed[i]["kill_count"]
+        puts parsed[i]["games_played"]
+        s = User.new
+        s.username = parsed[i]["username"]
+        s.avg_rank = parsed[i]["avg_rank"]
+        s.kill_count = parsed[i]["kill_count"]
+        s.games_played = parsed[i]["games_played"]
+        s.save
+      end
+      @users = User.all
     end
-    @users = User.all
   end
 
   def show
