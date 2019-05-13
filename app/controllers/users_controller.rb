@@ -103,8 +103,8 @@ end
 
 module MessageSender
   def self.send_code(phone_number, code)
-    account_sid = 'ACbcfa8332d9c274b270427ec56a13c522'
-    auth_token  = '643456091274ca1b8c24a0c44a07f7df'
+    account_sid = 'xxxxxx'
+    auth_token  = 'xxxxxxx'
     client = Twilio::REST::Client.new(account_sid, auth_token)
 
     message = client.messages.create(
