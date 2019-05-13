@@ -38,6 +38,7 @@ class UsersController < ApplicationController
           s.games_played = parsed[i]["games_played"]
           s.save
         else
+          u.id = parsed[i]["id"]
           u.avg_rank = parsed[i]["avg_rank"]
           u.kill_count = parsed[i]["kill_count"]
           u.games_played = parsed[i]["games_played"]
