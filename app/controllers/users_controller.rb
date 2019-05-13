@@ -40,6 +40,7 @@ class UsersController < ApplicationController
           u.avg_rank = parsed[i]["avg_rank"]
           u.kill_count = parsed[i]["kill_count"]
           u.games_played = parsed[i]["games_played"]
+          u.save
         end
       end
       @users = User.all
