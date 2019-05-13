@@ -19,5 +19,47 @@
 </p>
 
 <p>
+  <strong>Games this user played:</strong>
+</p>
+
+<% if @data_exists %>
+<table>
+  <tr>
+    <th>Game ID</th>
+    <th>Damage Dealt</th>
+    <th>Damage Taken</th>
+    <th>Amount Healed</th>
+    <th>Number of Kills</th>
+    <th>Number of Weapons</th>
+
+  </tr>
+
+  <% for i in 0..@size-1 %>
+    <tr>
+      <td><%= @parsed[i]["game_id"] %></td>
+      <td><%= @parsed[i]["total_damage_dealt"] %></td>
+      <td><%= @parsed[i]["total_damage_taken"] %></td>
+      <td><%= @parsed[i]["total_healing"] %></td>
+      <td><%= @parsed[i]["num_kills"] %></td>
+      <td><%= @parsed[i]["weapons_collected"] %></td>
+    </tr>
+  <% end %>
+</table>
+<% else %>
+<p>
+<strong>This user has not played any games.</strong>
+</p>
+<% end %>
+<p>
 <%= link_to 'All User Stats', users_path %>
 </p>
+
+
+<!--
+@game_id = parsed[1]["game_id"]
+@dealt = parsed[1]["total_damage_dealt"]
+@taken = parsed[1]["total_damage_taken"]
+@healing = parsed[1]["total_healing"]
+@kills = parsed[1]["num_kills"]
+@weapons = parsed[1]["weapons_collected"]
+-->

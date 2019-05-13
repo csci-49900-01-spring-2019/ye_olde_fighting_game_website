@@ -31,6 +31,7 @@ class UsersController < ApplicationController
           puts parsed[i]["kill_count"]
           puts parsed[i]["games_played"]
           s = User.new
+          s.id = parsed[i]["id"]
           s.username = parsed[i]["username"]
           s.avg_rank = parsed[i]["avg_rank"]
           s.kill_count = parsed[i]["kill_count"]
@@ -49,6 +50,26 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    if (@user.games_played > 0)
+      @data_exists = true
+      r2 = RestClient.get 'https://arcane-forest-85239.herokuapp.com/api/v1/users?game_sessions=' + (params[:id]).to_s, {:Authorization => session[:auth_token]}
+      puts 'https://arcane-forest-85239.herokuapp.com/api/v1/users?game_sessions=' + (params[:id]).to_s
+      puts r2
+      parsed = JSON.parse(r2.body)
+      @size = parsed.size
+      @parsed = parsed
+      puts parsed[1]
+      @game_id = parsed[1]["game_id"]
+      @dealt = parsed[1]["total_damage_dealt"]
+      @taken = parsed[1]["total_damage_taken"]
+      @healing = parsed[1]["total_healing"]
+      @kills = parsed[1]["num_kills"]
+      @weapons = parsed[1]["weapons_collected"]
+      puts parsed[1]["weapons_collected"]
+    else
+      @data_exists = false
+    end
+    #gs1 = GameSession.new(id, dealt, taken, healing, kills, weapons)
   end
 
   def new
@@ -97,36 +118,13 @@ class UsersController < ApplicationController
 
 end
 
-  #def create
-  #render plain: params[:article].inspect
-  #end
-
-module CodeGenerator
-  def self.generate
-    rand(100000...999999).to_s
-  end
-end
-
-module MessageSender
-  def self.send_code(phone_number, code)
-    account_sid = 'xxxxxx'
-    auth_token  = 'xxxxxxx'
-    client = Twilio::REST::Client.new(account_sid, auth_token)
-
-    message = client.messages.create(
-      from:  13479707167,
-      to:    phone_number,
-      body:  code
-    )
-
-    message.status == 'queued'
-  end
-end
-
-module ConfirmationSender
-  def self.send_confirmation_to(user)
-    verification_code = CodeGenerator.generate
-    user.update(verification_code: verification_code)
-    #MessageSender.send_code(user.info, verification_code)
-  end
-end
+#class GameSession
+#   def initialize(id, dealt, taken, healing, kills, weapons)
+#      @game_id = id
+#      @damage_dealt = dealt
+#      @damage_taken = taken
+#      @amount_healed = healing
+#      @game_kills = kills
+#      @num_weapons_collected = weapons
+#   end
+#end
