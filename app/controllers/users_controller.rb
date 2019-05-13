@@ -25,7 +25,8 @@ class UsersController < ApplicationController
       user_data = parsed[0]
       for i in 0..parsed.size-1
         puts parsed[i]["username"]
-        if (!User.exists?(username: parsed[i]["username"]))
+        u = User.find_by(username: parsed[i]["username"])
+        if (u == nil) #if the user doesn't exist
           puts parsed[i]["avg_rank"]
           puts parsed[i]["kill_count"]
           puts parsed[i]["games_played"]
@@ -35,6 +36,10 @@ class UsersController < ApplicationController
           s.kill_count = parsed[i]["kill_count"]
           s.games_played = parsed[i]["games_played"]
           s.save
+        else
+          u.avg_rank = parsed[i]["avg_rank"]
+          u.kill_count = parsed[i]["kill_count"]
+          u.games_played = parsed[i]["games_played"]
         end
       end
       @users = User.all
