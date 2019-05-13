@@ -13,9 +13,9 @@ module SessionsHelper
     end
   end
 
-  def current_auth
-      @current_auth = session[:auth_token]
-  end
+  #def current_auth
+  #    @current_auth = session[:auth_token]
+  #end
 
   # Returns true if the user is logged in, false otherwise.
   def logged_in?
