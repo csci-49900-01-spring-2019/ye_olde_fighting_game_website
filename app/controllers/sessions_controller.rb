@@ -18,7 +18,6 @@ class SessionsController < ApplicationController
       render 'new'
     else
       parsed = JSON.parse(resp.body)
-      puts parsed["auth_token"]
       params[:session][:auth_token] = parsed["auth_token"]
       session[:auth_token] = parsed["auth_token"]
       response = RestClient.get 'https://arcane-forest-85239.herokuapp.com', {:Authorization => params[:session][:auth_token]}
@@ -27,11 +26,9 @@ class SessionsController < ApplicationController
       for i in 0..parsed.size-1
         if parsed[i]["username"] == params[:session][:username]
           user_data = parsed[i]
-          puts parsed[i]
           break
         end
       end
-      puts parsed
       user = User.find_by(username: params[:session][:username].downcase)
       if user #if the user is already locally stored
         user.update(avg_rank: user_data["avg_rank"], kill_count: user_data["kill_count"], games_played: user_data["games_played"])
@@ -63,7 +60,6 @@ class SessionsController < ApplicationController
       render 'register'
     else
       parsed = JSON.parse(resp.body)
-      puts parsed["auth_token"]
       params[:session][:auth_token] = parsed["auth_token"]
       user = User.find_by(username: params[:session][:username].downcase)
       if user #if the user is already locally stored

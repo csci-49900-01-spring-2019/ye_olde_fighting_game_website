@@ -24,12 +24,8 @@ class UsersController < ApplicationController
       parsed = JSON.parse(response.body)
       user_data = parsed[0]
       for i in 0..parsed.size-1
-        puts parsed[i]["username"]
         u = User.find_by(username: parsed[i]["username"])
         if (u == nil) #if the user doesn't exist
-          puts parsed[i]["avg_rank"]
-          puts parsed[i]["kill_count"]
-          puts parsed[i]["games_played"]
           s = User.new
           s.id = parsed[i]["id"]
           s.username = parsed[i]["username"]
@@ -53,19 +49,15 @@ class UsersController < ApplicationController
     if (@user.games_played > 0)
       @data_exists = true
       r2 = RestClient.get 'https://arcane-forest-85239.herokuapp.com/api/v1/users?game_sessions=' + (params[:id]).to_s, {:Authorization => session[:auth_token]}
-      puts 'https://arcane-forest-85239.herokuapp.com/api/v1/users?game_sessions=' + (params[:id]).to_s
-      puts r2
       parsed = JSON.parse(r2.body)
       @size = parsed.size
       @parsed = parsed
-      puts parsed[1]
       @game_id = parsed[1]["game_id"]
       @dealt = parsed[1]["total_damage_dealt"]
       @taken = parsed[1]["total_damage_taken"]
       @healing = parsed[1]["total_healing"]
       @kills = parsed[1]["num_kills"]
       @weapons = parsed[1]["weapons_collected"]
-      puts parsed[1]["weapons_collected"]
     else
       @data_exists = false
     end

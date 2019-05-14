@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :static
   get 'stats', to: "users#index", as: "stats"
   get 'instructions', to: "static#instructions", as: "instructions"
-  get 'twofactor', to: "static#twofactor", as: "twofactor"
+  #get 'twofactor', to: "static#twofactor", as: "twofactor"
   get 'registration', to: "registration#register", as: "registration"
   get    '/register',   to: 'sessions#register'
   post    '/register',   to: 'sessions#register_create'

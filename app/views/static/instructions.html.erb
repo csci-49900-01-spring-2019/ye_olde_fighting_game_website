@@ -5,12 +5,25 @@
 <body>
 <h1>How to Play</h1>
 
-<p> The goal of the game is to be the last sphere standing.
+<p> The goal of the game is to be the last player standing.
   Every turn you roll the die to get the number of spaces you must move.
   Then you choose a tile that number of spaces away.
-  If you land on the same tile as an opponent, you fight them.
+  If you land on the same tile as an opponent, you must fight them. Otherwise,
+  if you have a ranged weapon, you may choose to attack anoither player within range.
   Everyone starts at 100 health. If you run out of health, you die.
   The last player standing wins the game! </p>
+
+<h1>Tiles</h1>
+<p> Each tile has certain attributes.
+  White tiles are normal, and have no effect on players who land on them.
+  Yellow tiles are weapon tiles. When you land on one, you recieve a random weapon.
+  Blue tiles are healing tiles. When you land on one, it heals you a small amount.
+  Green tiles are trap tiles. When you land on one, it damages you a small amount.
+  Red tiles are attack tiles. When standing on one, your attacks do more damage.
+  Gray tiles are defense tiles. When standing on one, you take less damage from attacks.
+  Pink tiles are ruby mines. When you land on one, you recieve rubies, which you can spend at shops.
+  A tile with a building on it is a shop tile. Here, you can spend you rubies to buy stonger weapons.
+</p>
 
   <%= link_to "Back to main page", root_path %>
 </body>
