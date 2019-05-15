@@ -5,8 +5,8 @@
 <body>
 <h1>Ye Olde Fight Club!</h1>
 
-<%= link_to "How To Play", instructions_path %>
-<%= link_to "Stats", controller: 'users' %>
+<p>Come join the fight! <%= link_to "Learn how to play here", instructions_path %>
+  or <%= link_to "log in and see your game stats.", login_path %> </p>
 <br>
 <%= image_tag("gameplay.jpg", alt: "Ye Olde Fight Club in action!") %>
 <br>
