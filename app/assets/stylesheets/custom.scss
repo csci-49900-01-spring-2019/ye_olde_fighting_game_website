@@ -95,7 +95,11 @@ a:hover {
 
 /* tables */
 
-table {
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    content: " \25B4\25BE"
+}
+
+table.sortable {
 	width:50%;
 	background-color: $lighter-tan;
   margin: 0 auto;
@@ -103,19 +107,19 @@ table {
 	//box-shadow: 10px -10px 5px $medium-brown;
 }
 
-th {
+table.sortable th {
   background-color: $mahogany;
   color: $lighter-tan;
   height: 40px;
 }
 
-th, td {
+table.sortable th, td {
   padding: 5px;
   text-align: center;
-  //border-bottom: 1px solid $mahogany;
+  border-bottom: 1px solid $mahogany;
 }
 
-tr:nth-child(even) {background-color: $darker-tan;}
+table.sortable tr:nth-child(even) {background-color: $darker-tan;}
 
 /* header */
 
